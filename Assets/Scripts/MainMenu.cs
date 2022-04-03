@@ -50,7 +50,7 @@ public class MainMenu : MonoBehaviour
     }
     private void PlayfabLogin()
     {
-        var request = new LoginWithCustomIDRequest { CustomId = "customid", CreateAccount = true };
+        var request = new LoginWithCustomIDRequest {CustomId = SystemInfo.deviceUniqueIdentifier, CreateAccount = true };
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSucess, OnLoginFailure);
     }
     private void OnLoginSucess(LoginResult result)
