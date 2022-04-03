@@ -6,15 +6,21 @@ using PlayFab.ClientModels;
 
 public class UserNameGet : MonoBehaviour
 {
+    public ButtonSound butt;
     public string userName;
     public GameObject success, fail;
     // Start is called before the first frame update
     public void inputChanged(string st)
     {
         userName = st;
+        if (!butt)
+        {
+            Debug.Log("we need butt here");
+        }
     }
     public void CheckUserName()
     {
+        butt.OnButtonPress();
         var request = new UpdateUserTitleDisplayNameRequest { DisplayName = userName };
         PlayFabClientAPI.UpdateUserTitleDisplayName(request, UsernameSuccess, UsernameFail);
     }
@@ -29,10 +35,12 @@ public class UserNameGet : MonoBehaviour
     }
     public void ClosePanel()
     {
+        butt.OnButtonPress();
         this.gameObject.SetActive(false);
     }
     public void CloseFailPanel()
     {
+        butt.OnButtonPress();
         fail.SetActive(false);
     }
 }

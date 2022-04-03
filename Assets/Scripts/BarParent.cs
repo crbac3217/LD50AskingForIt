@@ -16,7 +16,7 @@ public class BarParent : MonoBehaviour
     {
         mouseMode = PlayerPrefs.GetInt("MouseMode") > 0;
         wheelSensitivity = PlayerPrefs.GetFloat("WheelSensitivity");
-        mouseSensitivity = PlayerPrefs.GetFloat("MouseSensetivity");
+        mouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity");
     }
     void Update()
     {

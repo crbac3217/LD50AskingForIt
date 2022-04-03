@@ -8,6 +8,7 @@ using PlayFab.ClientModels;
 
 public class MainMenu : MonoBehaviour
 {
+    public ButtonSound butt;
     private string[] condom, birthcontrol;
     private int indexCondom, indexBirthControl;
     public Button[] buttonList = new Button[] { };
@@ -24,6 +25,10 @@ public class MainMenu : MonoBehaviour
         else
         {
             CleanSlate();
+        }
+        if (!butt)
+        {
+            Debug.Log("we need butt here");
         }
     }
     private void ReLoginStartSequence()
@@ -59,24 +64,29 @@ public class MainMenu : MonoBehaviour
     }
     public void LoadScene(int i)
     {
+        butt.OnButtonPress();
         SceneManager.LoadSceneAsync(i);
     }
     public void Options()
     {
+        butt.OnButtonPress();
         optionPanel.SetActive(true);
     }
     public void OptionsClose()
     {
+        butt.OnButtonPress();
         optionPanel.SetActive(false);
     }
     public void QuitApp()
     {
+        butt.OnButtonPress();
         Application.Quit();
     }
     private void Update()
     {
         if (Input.anyKeyDown)
         {
+            butt.OnButtonPress();
             if (Input.GetKeyDown(condom[indexCondom]))
             {
                 indexCondom++;

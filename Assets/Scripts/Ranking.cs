@@ -9,12 +9,17 @@ using UnityEngine.SceneManagement;
 
 public class Ranking : MonoBehaviour
 {
+    public ButtonSound butt;
     public GameObject panel1, panel2, singlePrefab, yourScore;
     // Start is called before the first frame update
     void Start()
     {
         GetLeaderBoard();
         ShowYourScore();
+        if (!butt)
+        {
+            Debug.Log("we need butt here");
+        }
     }
     private void GetLeaderBoard()
     {
@@ -52,6 +57,7 @@ public class Ranking : MonoBehaviour
     }
     public void Menu()
     {
+        butt.OnButtonPress();
         SceneManager.LoadSceneAsync(0);
     }
 }

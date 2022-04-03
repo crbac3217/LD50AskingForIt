@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class OptionsPanel : MonoBehaviour
 {
+    public ButtonSound butt;
     public bool mouseMode;
     public float mouseSense, wheelSense;
     public Slider mouseSlider, wheelSlider;
@@ -16,6 +17,10 @@ public class OptionsPanel : MonoBehaviour
     {
         //TempFunction();
         SetUpPanel();
+        if (!butt)
+        {
+            Debug.Log("we need butt here");
+        }
     }
     //private void TempFunction()
     //{
@@ -28,6 +33,7 @@ public class OptionsPanel : MonoBehaviour
         mouseMode = PlayerPrefs.GetInt("MouseMode") == 1;
         wheelSense = PlayerPrefs.GetFloat("WheelSensitivity");
         mouseSense = PlayerPrefs.GetFloat("MouseSensitivity");
+        Debug.Log("MouseSense = " + mouseSense + ", and wheelsense = " + wheelSense);
         SetUpMouse(mouseSense);
         SetUpWheel(wheelSense);
         SetUpToggle(mouseMode);
@@ -50,8 +56,6 @@ public class OptionsPanel : MonoBehaviour
     public void WheelSliderChanged(System.Single f)
     {
         wheelSense = f;
-        Debug.Log(f);
-        Debug.Log((float)f);
         wheelInput.text = wheelSense.ToString("F2");
     }
     public void MouseSliderChanged(System.Single f)
@@ -79,6 +83,7 @@ public class OptionsPanel : MonoBehaviour
     }
     public void ToggleChanged(bool b)
     {
+        butt.OnButtonPress();
         mouseMode = b;
     }
     void Update()
@@ -87,6 +92,7 @@ public class OptionsPanel : MonoBehaviour
     }
     public void SaveStats()
     {
+        Debug.Log("MouseSense = " + mouseSense + ", and wheelsense = " + wheelSense);
         if (mouseMode)
         {
             PlayerPrefs.SetInt("MouseMode", 1);
@@ -95,7 +101,7 @@ public class OptionsPanel : MonoBehaviour
         {
             PlayerPrefs.SetInt("MouseMode", 0);
         }
-        PlayerPrefs.SetFloat("MouseSensetivity", mouseSense);
+        PlayerPrefs.SetFloat("MouseSensitivity", mouseSense);
         PlayerPrefs.SetFloat("WheelSensitivity", wheelSense);
     }
 }

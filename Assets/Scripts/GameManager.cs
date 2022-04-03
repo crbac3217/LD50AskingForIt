@@ -9,6 +9,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public AudioSource audio;
+    public AudioClip[] clips;
+    public ButtonSound butt;
     public TextMeshProUGUI tmp;
     public Vector2[] spawnPoints = new Vector2[4] { Vector2.zero, Vector2.zero, Vector2.zero, Vector2.zero };
     public float[] triggerPoints = new float[] { };
@@ -25,7 +28,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
         Begin();
+        if (!butt)
+        {
+            Debug.Log("Butt");
+        }
     }
     public virtual void Begin()
     {
@@ -43,6 +51,9 @@ public class GameManager : MonoBehaviour
     public void Blocked()
     {
         blocks++;
+        int indexRand = Random.Range(0, clips.Length);
+        audio.clip = clips[indexRand];
+        audio.Play();
     }
     public virtual IEnumerator GameOver()
     {
@@ -97,6 +108,7 @@ public class GameManager : MonoBehaviour
     }
     public void PauseGame()
     {
+        butt.OnButtonPress();
         Time.timeScale = 0;
         rotator.GetComponent<BarParent>().enabled = false;
         DepthOfField d;
@@ -107,6 +119,7 @@ public class GameManager : MonoBehaviour
     }
     public void ResumeGame()
     {
+        butt.OnButtonPress();
         rotator.GetComponent<BarParent>().enabled = true;
         rotator.GetComponent<BarParent>().SetUpStat();
         DepthOfField d;
@@ -150,14 +163,17 @@ public class GameManager : MonoBehaviour
     #region SceneManagement
     public void Retry()
     {
+        butt.OnButtonPress();
         SceneManager.LoadSceneAsync(1);
     }
     public void Menu()
     {
+        butt.OnButtonPress();
         SceneManager.LoadSceneAsync(0);
     }
     public void Infinite()
     {
+        butt.OnButtonPress();
         SceneManager.LoadSceneAsync(2);
     }
     #endregion SceneManagement
